@@ -1,9 +1,9 @@
 Relic Helper
 =======================================================
 
-##Client config profile manager & helper for Relic Tibia Server
+## Client config profile manager & helper for Relic Tibia Server
 
-##Features
+## Features
 
 1. client configuration profile management (including hotkeys, vip lists, open channels),
 1. shared map files between profiles,
@@ -41,7 +41,7 @@ Relic Helper
 
 Start Relic Helper and enjoy!
 
-##Contribution
+## Contribution
 
 1. Submit an issue — include as much detail as possible about the bug or feature request,
 1. Fork the repository on GitHub,
