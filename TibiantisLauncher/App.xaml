@@ -1,0 +1,88 @@
+﻿<Application x:Class="RelicHelper.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="Application_Startup"
+             Exit="Application_Exit"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException"
+             >
+    <Application.Resources>
+        <!-- FONTS -->
+        <FontFamily x:Key="ChaparralPro">pack://application:,,,/RelicHelper;component/Resources/#Chaparral Pro</FontFamily>
+        <!-- NORMAL LABEL -->
+        <Style x:Key="NormalLabel" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="{StaticResource ChaparralPro}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextElement.Foreground" Value="#FFF"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <!-- HEADING ROW -->
+        <Style x:Key="HeadingRow" TargetType="{x:Type RowDefinition}">
+            <!--<Setter Property="Bac"-->
+        </Style>
+        <!-- NORMAL BUTTON -->
+        <Style x:Key="NormalButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#FFB99B15"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="#CCA68B13"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="{StaticResource ChaparralPro}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderBrush" Value="#0000"/>
+            <Setter Property="TextElement.Foreground" Value="#FFA68B13"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="/RelicHelper;component/Resources/button.png"></ImageBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#FF5D5949"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- ICON BUTTON -->
+        <Style x:Key="IconButton" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#FFB99B15"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="#CCA68B13"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Lucida Console"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderBrush" Value="#0000"/>
+            <Setter Property="Panel.ZIndex" Value="99"/>
+            <Setter Property="TextElement.Foreground" Value="#FFA68B13"/>
+        </Style>
+    </Application.Resources>
+</Application>
