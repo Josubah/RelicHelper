@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RelicHelper", "TibiantisLauncher\RelicHelper.csproj", "{44B76F65-8110-4A15-83A7-902755499CE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EE0966D-CAAB-430C-A30C-5D80D5F2ED8A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|x64.ActiveCfg = Debug|x64
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|x64.Build.0 = Debug|x64
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|x86.ActiveCfg = Debug|x86
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Debug|x86.Build.0 = Debug|x86
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|x64.ActiveCfg = Release|x64
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|x64.Build.0 = Release|x64
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|x86.ActiveCfg = Release|x86
+		{44B76F65-8110-4A15-83A7-902755499CE9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67D33245-7FAD-4F39-8149-B5D50F2B87CF}
+	EndGlobalSection
+EndGlobal
