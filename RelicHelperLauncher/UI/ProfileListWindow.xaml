@@ -1,4 +1,4 @@
-﻿<Window x:Name="window"
+<Window x:Name="window"
         x:Class="RelicHelper.ProfileListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -27,21 +27,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image Margin="10,0,214,324" Source="/Resources/smok.png" Grid.RowSpan="3"/>
-        <Button x:Name="StartClientButton" Style="{StaticResource NormalButton}" Content="START CLIENT" Margin="0,5,11,0" Grid.Row="3" VerticalAlignment="Top" Click="StartClientButton_Click" Height="30" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedIndex}, ElementName=ProfileListBox}" HorizontalAlignment="Right"/>
-        <Button x:Name="StartCamPlayerButton" Style="{StaticResource NormalButton}" Content="START CAM PLAYER" Margin="11,5,0,0" Grid.Row="3" VerticalAlignment="Top" Click="StartCamPlayerButton_Click" Height="30" HorizontalAlignment="Left"/>
+        <Button x:Name="StartClientButton" Style="{StaticResource NormalButton}" Content="START CLIENT" Margin="0,5,11,10" Grid.Row="3" VerticalAlignment="Top" Click="StartClientButton_Click" Height="30" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedIndex}, ElementName=ProfileListBox}" HorizontalAlignment="Right"/>
+        <Button x:Name="StartCamPlayerButton" Style="{StaticResource NormalButton}" Content="START CAM PLAYER" Margin="11,5,0,10" Grid.Row="3" VerticalAlignment="Top" Click="StartCamPlayerButton_Click" Height="30" HorizontalAlignment="Left"/>
         <Button x:Name="AddProfileButton" Style="{StaticResource NormalButton}" Content="+" Margin="281,4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" HorizontalAlignment="Left" Panel.ZIndex="1" FontFamily="Lucida Console" FontSize="16" Width="30" IsEnabled="{Binding Items.Count, Converter={StaticResource IsProfileListFull}, ElementName=ProfileListBox, Mode=OneWay}" Click="AddProfileButton_Click" ToolTip="Add new profile"/>
         <Button x:Name="RemoveProfileButton" Style="{StaticResource NormalButton}" Content="-" Margin="313,4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="30" HorizontalAlignment="Left" Panel.ZIndex="1" FontFamily="Lucida Console" FontSize="16" Width="30" IsEnabled="{Binding SelectedIndex, Converter={StaticResource IsSelectedIndex}, ElementName=ProfileListBox}" ToolTip="Remove selected profile" Click="RemoveProfileButton_Click"/>
-        <Label Style="{StaticResource NormalLabel}" Content="Relic Helper by Josuba" HorizontalAlignment="Left" VerticalAlignment="Top" Width="134" Height="22" Padding="2,2,2,2" Opacity="0.7" HorizontalContentAlignment="Center" Margin="229,56,0,0" Grid.Row="1" FontSize="12.5"/>
-        <Label x:Name="VersionLabel" Style="{StaticResource NormalLabel}" Content="" Margin="0,64,11,0" VerticalAlignment="Top" Height="14" Padding="2,2,2,2" HorizontalContentAlignment="Right" Opacity="0.25" FontSize="10" VerticalContentAlignment="Center" Grid.Row="1" RenderTransformOrigin="0.5,0.5" FontFamily="Chaparral Pro" HorizontalAlignment="Right" Width="50">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,52,15,0">
+            <Label Style="{StaticResource NormalLabel}" Content="Relic Helper by Josuban" Opacity="0.7" FontSize="11" Padding="0" HorizontalAlignment="Right"/>
+            <Label x:Name="VersionLabel" Style="{StaticResource NormalLabel}" Content="v2.0" Opacity="0.4" FontSize="10" Padding="0" HorizontalAlignment="Right" FontFamily="Chaparral Pro" Margin="0,2,0,0"/>
+        </StackPanel>
         <Rectangle x:Name="WindowDragHandle" Height="30" Stroke="Black" VerticalAlignment="Center" Opacity="0" Panel.ZIndex="98" Fill="Black"/>
         <Button x:Name="QuitIconButton_Click" Style="{StaticResource IconButton}" Margin="328,0,0,0" Click="QuitButton_Click" Content="X"/>
         <Button x:Name="MinimalizeIconButton" Style="{StaticResource IconButton}" Margin="298,0,30,0" Click="MinimalizeIconButton_Click" Content="_"/>

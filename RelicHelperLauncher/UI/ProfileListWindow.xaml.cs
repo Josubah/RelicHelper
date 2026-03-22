@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+using System;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -106,21 +107,27 @@ namespace RelicHelper
                 GameClientValidator.ValidateClientExistence();
                 GameClientValidator.ValidateClientVersion();
                 GameClientValidator.ValidateClientNotRunning();
-            }
-            catch (ValidationException ex)
-            {
-                MessageBox.Show (ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            App.GameClient = new GameClient((Profile)ProfileListBox.SelectedItem);
-            App.GameClient.Exit += (sender, e) => Dispatcher.Invoke(Application.Current.Shutdown);
-            App.GameClient.Start();
-            App.Current.MainWindow = new GameClientOverlayWindow();
-            App.Current.MainWindow.Show();
-            Thread.Sleep(1000);
-            App.GameClient?.Window?.Activate();
-            Close();
+                if (ProfileListBox.SelectedItem is not Profile selectedProfile)
+                    return;
+
+                App.GameClient = new GameClient(selectedProfile);
+                App.GameClient.Exit += (sender, e) => Dispatcher.Invoke(() => Application.Current.Shutdown());
+                App.GameClient.Start();
+
+                // Create the overlay window
+                var overlay = new GameClientOverlayWindow();
+                App.Current.MainWindow = overlay;
+                overlay.Show();
+
+                Thread.Sleep(500);
+                App.GameClient?.Window?.Activate();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Critical error starting client:\n{ex.Message}\n\nStack trace:\n{ex.StackTrace}", "Launch Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void StartCamPlayer()
@@ -130,19 +137,21 @@ namespace RelicHelper
                 GameClientValidator.ValidateCamPlayerExistence();
                 GameClientValidator.ValidateClientVersion();
                 GameClientValidator.ValidateClientNotRunning();
-            }
-            catch (ValidationException ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            App.CamPlayer = new CamPlayer();
-            App.CamPlayer.Start();
-            Thread.Sleep(1000);
-            App.Current.MainWindow = new GameClientOverlayWindow();
-            App.Current.MainWindow.Show();
-            Application.Current.Shutdown();
+                App.CamPlayer = new CamPlayer();
+                App.CamPlayer.Start();
+                Thread.Sleep(500);
+
+                var overlay = new GameClientOverlayWindow();
+                App.Current.MainWindow = overlay;
+                overlay.Show();
+                
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Critical error starting Cam Player:\n{ex.Message}\n\nStack trace:\n{ex.StackTrace}", "Launch Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ShowAddProfileWindow()

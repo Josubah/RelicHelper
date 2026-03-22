@@ -1,4 +1,4 @@
-﻿using Emgu.CV;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using System;
@@ -117,6 +117,83 @@ namespace RelicHelper
             resultMat.Dispose();
 
             return resultList;
+        }
+
+        public int GetMissilePixelCount(Bitmap centerArea)
+        {
+            using (Mat sourceMat = centerArea.ToMat())
+            using (Mat hsvMat = new Mat())
+            using (Mat mask = new Mat())
+            {
+                CvInvoke.CvtColor(sourceMat, hsvMat, ColorConversion.Bgr2Hsv);
+                
+                using (Mat maskPurple = new Mat())
+                using (Mat maskBlue = new Mat())
+                using (Mat maskRed1 = new Mat())
+                using (Mat maskRed2 = new Mat())
+                {
+                    // Increased Saturation and Value thresholds to 120/120 to avoid floor/background noise
+                    // SD Purple/Pink: H 135-165
+                    CvInvoke.InRange(hsvMat, new ScalarArray(new MCvScalar(135, 120, 120)), new ScalarArray(new MCvScalar(165, 255, 255)), maskPurple);
+                    // HMM/Explo Blue: H 90-135
+                    CvInvoke.InRange(hsvMat, new ScalarArray(new MCvScalar(90, 120, 120)), new ScalarArray(new MCvScalar(135, 255, 255)), maskBlue);
+                    // GFB Red: H 0-10 and 165-180
+                    CvInvoke.InRange(hsvMat, new ScalarArray(new MCvScalar(0, 120, 120)), new ScalarArray(new MCvScalar(10, 255, 255)), maskRed1);
+                    CvInvoke.InRange(hsvMat, new ScalarArray(new MCvScalar(165, 120, 120)), new ScalarArray(new MCvScalar(180, 255, 255)), maskRed2);
+                    
+                    CvInvoke.BitwiseOr(maskPurple, maskBlue, mask);
+                    CvInvoke.BitwiseOr(mask, maskRed1, mask);
+                    CvInvoke.BitwiseOr(mask, maskRed2, mask);
+                    
+                    return CvInvoke.CountNonZero(mask);
+                }
+            }
+        }
+        public bool DetectSpellText(Bitmap gameScreen)
+        {
+            // Tibia Golden/Yellow text for spells
+            // We'll use a range to be more robust.
+            // Typical color: (255, 255, 128) or similar.
+            
+            using (Mat sourceMat = gameScreen.ToMat())
+            using (Mat hsvMat = new Mat())
+            using (Mat mask = new Mat())
+            {
+                // Convert to HSV for better color detection
+                CvInvoke.CvtColor(sourceMat, hsvMat, ColorConversion.Bgr2Hsv);
+                
+                // Yellow/Golden HSV range
+                // Hue: 20-40 (Yellow/Orange)
+                // Saturation: 100-255
+                // Value: 150-255
+                ScalarArray lower = new ScalarArray(new MCvScalar(20, 100, 150));
+                ScalarArray upper = new ScalarArray(new MCvScalar(40, 255, 255));
+                
+                CvInvoke.InRange(hsvMat, lower, upper, mask);
+                
+                // Use Blobs/Contours to filter for the specific string shape.
+                // 'exura res sio' is roughly 4-5 times wider than it is high.
+                using (Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint())
+                {
+                    CvInvoke.FindContours(mask, contours, null, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+                    
+                    for (int i = 0; i < contours.Size; i++)
+                    {
+                        Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
+                        
+                        // Aspect ratio and size check (Width should be larger than height)
+                        double ratio = (double)rect.Width / rect.Height;
+                        
+                        // Relaxed spell size heuristic: Width 20-200, Height 5-20
+                        if (rect.Width > 20 && rect.Width < 200 && rect.Height > 5 && rect.Height < 20 && ratio > 1.2)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+                return false;
+            }
         }
     }
 }

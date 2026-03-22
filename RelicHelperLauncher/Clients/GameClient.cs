@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,11 +19,11 @@ namespace RelicHelper.Clients
         public static string ClientFullPath => Path.Combine(ClientDirectoryFullPath, FileName);
         public static string ConfigFullPath => Path.Combine(ClientDirectoryFullPath, "game", "TibiaRelic.cfg");
         public static string ConfigBackupFullPath => Path.Combine(ClientDirectoryFullPath, "game", "TibiaRelic.cfg.bak");
-        private Profile? _profile { get; init; }
+        public Profile? Profile { get; init; }
 
         public GameClient(Profile profile) : base()
         {
-            _profile = profile;
+            Profile = profile;
         }
 
         private void EnsureConfigBackup()
@@ -37,29 +37,29 @@ namespace RelicHelper.Clients
 
         public void SetConfig()
         {
-            if (_profile == null)
-                throw new NullReferenceException(nameof(_profile));
+            if (Profile == null)
+                throw new NullReferenceException(nameof(Profile));
 
-            var sourcePath = Path.Combine(ClientDirectoryFullPath, _profile.CfgPath);
+            var sourcePath = Path.Combine(ClientDirectoryFullPath, Profile.CfgPath);
             if (File.Exists(sourcePath))
                 File.Copy(sourcePath, ConfigFullPath, true);
         }
 
         public void UnsetConfig()
         {
-            if (_profile == null)
-                throw new NullReferenceException(nameof(_profile));
+            if (Profile == null)
+                throw new NullReferenceException(nameof(Profile));
 
             var sourcePath = ConfigFullPath;
             if (File.Exists(sourcePath))
-                File.Copy(sourcePath, Path.Combine(ClientDirectoryFullPath, _profile.CfgPath), true);
+                File.Copy(sourcePath, Path.Combine(ClientDirectoryFullPath, Profile.CfgPath), true);
         }
 
         public override void Start()
         {
             EnsureConfigBackup();
             SetConfig();
-            GameClientValidator.ValidateCfgPath(_profile?.CfgPath);
+            GameClientValidator.ValidateCfgPath(Profile?.CfgPath);
 
             base.Start();
 

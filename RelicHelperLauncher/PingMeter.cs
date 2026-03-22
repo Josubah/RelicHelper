@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,13 +11,13 @@ using System.Windows.Threading;
 
 namespace RelicHelper
 {
-    internal class PingMeter2
+    internal class PingMeter
     {
-        private readonly string _host = "www.google.com";
+        private readonly string _host = "prd.tibiarelic.com";
         private int _currentPing = int.MaxValue;
         public int CurrentPing => _currentPing;
 
-        public PingMeter2()
+        public PingMeter()
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(3);
@@ -27,13 +27,20 @@ namespace RelicHelper
 
         public async Task CheckPing()
         {
-            Ping ping = new Ping();
-            PingReply pingReply = await ping.SendPingAsync(_host, 1200);
-
-            if (pingReply.Status == IPStatus.Success)
+            try
             {
-                _currentPing = (int)pingReply.RoundtripTime;
-                return;
+                Ping ping = new Ping();
+                PingReply pingReply = await ping.SendPingAsync(_host, 1200);
+
+                if (pingReply.Status == IPStatus.Success)
+                {
+                    _currentPing = (int)pingReply.RoundtripTime;
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                // Network drop or host unreachable
             }
 
             _currentPing = int.MaxValue;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
@@ -38,6 +38,19 @@ namespace RelicHelper.Profiles
         public string CfgFile { get => $"{CfgId}.cfg"; }
         [XmlIgnore]
         public string CfgPath { get => $@"{ProfileManager.ProfilesDirectory}/{CfgFile}"; }
+
+        [XmlAttribute]
+        public bool StatsVisible { get; set; } = true;
+        [XmlAttribute]
+        public bool TimerVisible { get; set; } = true;
+        [XmlAttribute]
+        public bool ExhaustVisible { get; set; } = true;
+        [XmlAttribute]
+        public bool SpellVisible { get; set; } = true;
+        [XmlAttribute]
+        public bool SearchVisible { get; set; } = true;
+        [XmlAttribute]
+        public bool LinksVisible { get; set; } = true;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
