@@ -1,4 +1,4 @@
-Relic Helper
+Relic Helper V 2.0
 =======================================================
 
 ##Client config profile manager & helper for Relic Tibia Server
